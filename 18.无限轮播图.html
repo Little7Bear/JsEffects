@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        .main {
+            width: 400px;
+            height: 267px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        #top {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        ul {
+            width: 2800px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        ul li {
+            width: 400px;
+            height: 267px;
+            float: left;
+        }
+
+        ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        ol li {
+            width: 15px;
+            height: 15px;
+            background-color: gray;
+            border-radius: 7px;
+            float: left;
+            margin-right: 3px;
+            cursor: pointer;
+        }
+
+        .current {
+            background-color: orangered;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main" id="slider">
+        <div id="top">
+            <ul id="ul">
+                <li>
+                    <img src="images/拼盘.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/柠檬.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/番茄.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/草莓.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/葡萄.jpg" alt="">
+                </li>
+                <li>
+                    <img src="images/西瓜.jpg" alt="">
+                </li>
+            </ul>
+        </div>
+
+        <ol id="ol"></ol>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var ul = document.getElementById('ul');
+            var lis = ul.children;
+            var ol = document.getElementById('ol');
+            var currentIndex = 0, indicatorIndex = 0;
+            ul.appendChild(lis[0].cloneNode(true));
+
+            //动态创建页码
+            for (let i = 0; i < lis.length - 1; i++) {
+                var li = document.createElement('li');
+                ol.appendChild(li);
+            };
+
+            //默认第一个页码选中
+            ol.children[0].className = 'current';
+
+            //小图标鼠标进入事件
+            var olLis = ol.children;
+            for (let i = 0; i < olLis.length; i++) {
+                (function (i) {
+                    olLis[i].onmousemove = function () {
+                        for (let j = 0; j < olLis.length; j++) {
+                            olLis[j].className = '';
+                        }
+                        this.className = 'current';
+                        constant(ul, -(400 * i), 60);
+                        currentIndex = indicatorIndex = i;
+                    };
+                })(i);
+                olLis[i].onmouseout = function () {
+                    // setInterval1();
+                };
+            };
+            //图片滚动
+            var timer = setInterval(autoPlay, 1000);
+
+            //清除定时器
+            var slider = document.getElementById('slider');
+            slider.onmousemove = function () {
+                clearInterval(timer);
+            };
+            slider.onmouseout = function () {
+                timer = setInterval(autoPlay, 1000);
+            };
+
+            function autoPlay() {
+                currentIndex++;
+                if (currentIndex > lis.length - 1) {
+                    ul.style.left = 0;
+                    currentIndex = 1;
+                }
+                constant(ul, -(currentIndex * 400), 400);
+                //页码滚动
+                indicatorIndex++;
+                if (indicatorIndex > olLis.length - 1) {
+                    indicatorIndex = 0;
+                }
+                for (let j = 0; j < olLis.length; j++) {
+                    olLis[j].className = '';
+                }
+                olLis[indicatorIndex].className = 'current';
+            };
+        };
+
+        //匀速动画
+        function constant(element, target, speed) {
+            clearInterval(element.timer);
+            var dir = element.offsetLeft < target ? speed : -speed;
+            element.timer = setInterval(function () {
+                element.style.left = element.offsetLeft + dir + 'px';
+                if (Math.abs(target - element.offsetLeft) < Math.abs(dir)) {
+                    clearInterval(element.timer);
+                    element.style.left = target + 'px';
+                }
+            }, 20);
+        };
+    </script>
+</body>
+
+</html>

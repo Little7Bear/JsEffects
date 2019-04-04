@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            color: #333;
+        }
+
+        #box {
+            position: relative;
+            width: 1000px;
+            height: 500px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        #pic {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #to-top,
+        #to-bottom {
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        #to-top {
+            top: 0;
+        }
+
+        #to-bottom {
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <img id="pic" src="images\樱花.jpg" alt="">
+        <span id="to-top"></span>
+        <span id="to-bottom"></span>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var box = document.getElementById('box');
+            var pic = document.getElementById('pic');
+            var top = document.getElementById('to-top');
+            var bottom = document.getElementById('to-bottom');
+
+            var timer = null, num = 0;
+            
+            top.onmouseover = function () {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    num -= 5;
+                    if (num >= -1336) {//1336 = 图片高度-盒子高度
+                        pic.style.top = num + 'px';
+                    } else {
+                        clearInterval(timer);
+                    };
+                }, 30);
+            };
+
+            bottom.onmouseover = function () {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    num += 5;
+                    if (num <= 0) {//1336 = 图片高度-盒子高度
+                        pic.style.top = num + 'px';
+                    } else {
+                        clearInterval(timer);
+                    };
+                }, 30);
+            };
+
+            box.onmouseleave = function () {
+                clearInterval(timer);
+            };
+
+        }; 
+    </script>
+</body>
+
+</html>

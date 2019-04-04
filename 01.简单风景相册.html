@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            width: 800px;
+            margin: 0 auto;
+            padding-top: 100px;
+        }
+
+        #title {
+            color: #333;
+            font-size: 20px;
+            line-height: 50px;
+        }
+
+        #big-img {
+            width: 400px;
+            height: 267px;
+        }
+
+        ul>li {
+            list-style: none;
+            float: left;
+        }
+
+        ul>li>a>img {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;   
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <p id="title">西瓜</p>
+        <img id="big-img" src="images/西瓜.jpg" alt="">
+        <ul id="fruits">
+            <li>
+                <a href="images/西瓜.jpg" title="西瓜">
+                    <img src="images/西瓜.jpg" alt="西瓜">
+                </a>
+            </li>
+            <li>
+                <a href="images/柠檬.jpg" title="柠檬">
+                    <img src="images/柠檬.jpg" alt="柠檬">
+                </a>
+            </li>
+            <li>
+                <a href="images/番茄.jpg" title="番茄">
+                    <img src="images/番茄.jpg" alt="番茄">
+                </a>
+            </li>
+            <li>
+                <a href="images/草莓.jpg" title="草莓">
+                    <img src="images/草莓.jpg" alt="草莓">
+                </a>
+            </li>
+            <li>
+                <a href="images/葡萄.jpg" title="葡萄">
+                    <img src="images/葡萄.jpg" alt="葡萄">
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.onload = function () {
+            var des = document.getElementById('title');
+            var bigImg = document.getElementById('big-img');
+            var ul = document.getElementById('fruits');
+            var aList = ul.getElementsByTagName('a');
+            function changeImg(params) {
+                des.innerText = this.title;
+                bigImg.src = this.href;
+                return false;
+            }
+            for (var i = 0; i < aList.length; i++) {
+                aList[i].onclick = changeImg;
+            }
+        }
+    </script>
+</body>
+
+</html>

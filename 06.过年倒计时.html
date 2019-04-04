@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            color: #333;
+        }
+
+        .main {
+            width: 800px;
+            height: 500px;
+            margin: 0 auto;
+            background-color: darkgray;
+            text-align: center;
+            color: red;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <p id="time"></p>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var time = document.getElementById('time');
+            var futureDate = new Date('2019/02/05 00:00:00');
+            function p(s) {
+                return s < 10 ? '0' + s : s
+            };
+            setInterval(function name(params) {
+                var millisecond = futureDate.getTime() - new Date().getTime();
+                var seconds = parseInt(millisecond / 1000);
+                var d = parseInt(seconds / 3600 / 24);
+                var h = parseInt(seconds / 3600 % 24);
+                var m = parseInt(seconds / 60 % 60);
+                var s = seconds % 60;
+                time.innerText = "距离过年还有" + p(d) + "天" + p(h) + "时" + p(m) + "分" + p(s) + "秒";
+            }, 1000);
+        }; 
+    </script>
+</body>
+
+</html>

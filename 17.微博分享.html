@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #content {
+            width: 300px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+        }
+
+        #shareIcon {
+            position: absolute;
+            cursor: pointer;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p id="content">
+        1810年，肖邦出生于波兰；1817年开始创作；1818年登台演出；1822年至1829年在华沙国家音乐高等学校学习作曲和音乐理论。1829年起以作曲家和钢琴家的身份在欧洲巡演。后因华沙起义失败而定居巴黎，从事教学和创作。1849年，肖邦因肺结核逝世于巴黎。
+        [1-2] 肖邦是历史上最具影响力和最受欢迎的钢琴作曲家之一，是波兰音乐史上最重要的人物之一，欧洲19世纪浪漫主义音乐的代表人物。他的作品以波兰民间歌舞为基础，同时又深受巴赫影响，多以钢琴曲为主，被誉为“浪漫主义钢琴诗人”。
+    </p>
+    <img id="shareIcon" src="images/新浪微博.png" alt="" hidden>
+    <script>
+        window.onload = function () {
+            var conetent = document.getElementById('content');
+            var icon = document.getElementById('shareIcon');
+            //获得用户选中的内容
+            var selectedText;
+            conetent.onmouseup = function (event) {
+                var e = event || window.event;
+                if (window.getSelection()) {
+                    selectedText = window.getSelection().toString();
+                } else {
+                    selectedText = document.selection.createRange().text;
+                };
+                if (selectedText !== "") {
+                    icon.style.left = e.clientX + 'px';
+                    icon.style.top = e.clientY + 'px';
+                    icon.style.display = 'block';
+                }
+            };
+            document.onmousedown = function (event) {
+                var e = event || window.event;
+                var targetId = e.target ? e.target.id : e.srcElement.id;
+                if (targetId !== 'shareIcon') {
+                    icon.style.display = 'none';
+                }
+                else {
+                    window.open("http://v.t.sina.com.cn/share/share.php?searchPic=false&title=" + selectedText + "&url=https://baike.baidu.com/item/%E5%BC%97%E9%87%8C%E5%BE%B7%E9%87%8C%E5%85%8B%C2%B7%E8%82%96%E9%82%A6/292916?fr=aladdin&fromid=192387&fromtitle=%E8%82%96%E9%82%A6");
+                }
+                //取消选中
+                window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+            };
+        };
+    </script>
+</body>
+
+</html>

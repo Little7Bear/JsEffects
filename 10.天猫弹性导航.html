@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <script src="javascript/underscore.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav {
+            position: relative;
+            width: 800px;
+            height: 60px;
+            margin: 100px auto;
+            background-color: gray;
+        }
+
+        ul {
+            position: relative;
+        }
+
+        li {
+            width: 100px;
+            float: left;
+            line-height: 60px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #mall {
+            position: absolute;
+            left: 0;
+            width: 100px;
+            height: 60px;
+            background: url('images/西瓜.jpg') no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <span id="mall"></span>
+        <ul>
+            <li>双11狂欢</li>
+            <li>服装会场</li>
+            <li>数码家电</li>
+            <li>家具建材</li>
+            <li>母婴童装</li>
+            <li>手机会场</li>
+            <li>美妆会场</li>
+            <li>飞猪旅行</li>
+        </ul>
+    </nav>
+    <script>
+        window.onload = function () {
+            var lis = document.getElementsByTagName('li');
+            var icon = document.getElementById('mall');
+
+            var beginX = 0;
+            for (let i = 0; i < lis.length; i++) {
+                lis[i].onmouseover = function () {
+                    end = this.offsetLeft;
+                };
+                lis[i].onmousedown = function () {
+                    beginX = this.offsetLeft;
+                };
+                lis[i].onmouseout = function () {
+                    end = beginX;
+                };
+            }
+
+            var begin = 0, end = 0;
+            setInterval(function () {
+                begin += (end - begin) * 0.2;
+                icon.style.left = begin + 'px';
+            }, 30);
+        }; 
+    </script>
+</body>
+
+</html>

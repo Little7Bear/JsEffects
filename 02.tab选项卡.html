@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>tab选项卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            color: #333;
+        }
+
+        /* 头部区域 */
+
+        #tab {
+            width: 498px;
+            height: 120px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+        }
+
+        #tab-header {
+            height: 28px;
+            background-color: #e8e8e8;
+            line-height: 28px;
+        }
+
+        #tab-header>ul {
+            width: 500px;
+        }
+
+        #tab-header>ul>li {
+            width: 98px;
+            float: left;
+            text-align: center;
+            padding: 0 1px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        #tab-header>ul>.selected {
+            background-color: #fff;
+            border-bottom: none;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            padding: 0;
+        }
+
+        #tab-header>ul>li:first-child {
+            border-left: none;
+        }
+
+        #tab-header>ul>li:last-child {
+            border-right: none;
+        }
+
+        #tab-header>ul>li:hover {
+            color: orangered;
+            font-weight: bold;
+        }
+
+        /* 内容区域 */
+
+        .dom {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .dom>ul>li {
+            float: left;
+            width: 220px;
+            text-align: center;
+            margin: 5px;
+        }
+
+        .dom>ul>li:hover {
+            color: orangered;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tab">
+        <div id="tab-header">
+            <ul>
+                <li class="selected">公告</li>
+                <li>规则</li>
+                <li>论坛</li>
+                <li>安全</li>
+                <li>公益</li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="dom" style="display: block;">
+                <ul>
+                    <li>公告</li>
+                    <li>公告</li>
+                    <li>公告</li>
+                    <li>公告</li>
+                </ul>
+            </div>
+            <div class="dom">
+                <ul>
+                    <li>规则</li>
+                    <li>规则</li>
+                    <li>规则</li>
+                    <li>规则</li>
+                </ul>
+            </div>
+            <div class="dom">
+                <ul>
+                    <li>论坛</li>
+                    <li>论坛</li>
+                    <li>论坛</li>
+                    <li>论坛</li>
+                </ul>
+            </div>
+            <div class="dom">
+                <ul>
+                    <li>安全</li>
+                    <li>安全</li>
+                    <li>安全</li>
+                    <li>安全</li>
+                </ul>
+            </div>
+            <div class="dom">
+                <ul>
+                    <li>公益</li>
+                    <li>公益</li>
+                    <li>公益</li>
+                    <li>公益</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>    
+        window.onload = function () {
+            var allLis = $('tab-header').getElementsByTagName('li');
+            var allDoms = document.getElementsByClassName('dom');
+            for (var i = 0; i < allLis.length; i++) {
+                var li = allLis[i];
+                li.index = i;
+
+                li.onmouseover = function () {
+                    for (var j = 0; j < allLis.length; j++) {
+                        allLis[j].className = '';
+                        allDoms[j].style.display = "none";
+                    };
+
+                    this.className = 'selected';
+                    allDoms[this.index].style.display = "block";
+                };
+            }
+        };
+        function $(id) {
+            return typeof id === "string" ? document.getElementById(id) : null;
+        }
+    </script>
+</body>
+
+</html>

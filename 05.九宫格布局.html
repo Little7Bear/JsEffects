@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #top {
+            margin: 10px 10px;
+        }
+
+        ul>li {
+            width: 250px;
+            height: 220px;
+            background-color: darkcyan;
+            margin-bottom: 15px;
+            margin-right: 15px;
+        }
+
+        img {
+            width: 250px;
+            height: 170px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        #box {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="top">
+        <button>3列</button>
+        <button>4列</button>
+        <button>5列</button>
+    </div>
+
+    <ul id="box">
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+        <li>
+            <img src="images/西瓜.jpg" alt="">
+            <p>移动迷宫3</p>
+            <p>今日上映</p>
+        </li>
+    </ul>
+
+    <script>
+        function arrangeTheList(totalCols, parentNode) {
+            var boxW = 250, boxH = 220, boxM = 15, allCols = totalCols;
+            for (var i = 0; i < parentNode.children.length; i++) {
+                var row = parseInt(i / allCols);//所在行=index/总列数
+                var col = parseInt(i % allCols);//所在列=index%总列数
+                var currentBox = parentNode.children[i];
+                currentBox.style.position = "absolute";
+                currentBox.style.left = col * (boxW + boxM) + "px";//左边距离=所在列*(盒子宽+边距)
+                currentBox.style.top = row * (boxH + boxM) + "px";//上边距离=所在行*(盒子高+边距)
+            }
+        };
+        window.onload = function () {
+            var btns = document.getElementById('top').children;
+            var box = document.getElementById('box');
+            btns[0].onclick = function () {
+                arrangeTheList(3, box)
+            };
+            btns[1].onclick = function () {
+                arrangeTheList(4, box)
+            };
+            btns[2].onclick = function () {
+                arrangeTheList(5, box)
+            };
+        };
+    </script>
+</body>
+
+</html>

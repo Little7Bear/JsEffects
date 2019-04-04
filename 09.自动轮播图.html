@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .box {
+            width: 474px;
+            height: 240px;
+            margin: 100px auto;
+        }
+
+        .left,
+        .right {
+            float: left;
+            width: 60px;
+            height: 240px;
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        ul>li {
+            line-height: 79px;
+            text-align: center;
+            border-bottom: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        .left>li:last-child {
+            border-bottom: none;
+        }
+
+        .right>li:last-child {
+            border-bottom: none;
+        }
+
+        .center {
+            float: left;
+            width: 350px;
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .center img {
+            width: 370px;
+            height: 240px;
+            vertical-align: top;
+        }
+
+        .current {
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="left">
+            <li class="current">
+                <a href="#">水果1</a>
+            </li>
+            <li>
+                <a href="#">水果2</a>
+            </li>
+            <li>
+                <a href="#">水果3</a>
+            </li>
+        </ul>
+        <div class="center">
+            <img src="images/拼盘.jpg" alt="">
+            <img src="images/柠檬.jpg" alt="">
+            <img src="images/番茄.jpg" alt="">
+            <img src="images/草莓.jpg" alt="">
+            <img src="images/葡萄.jpg" alt="">
+            <img src="images/西瓜.jpg" alt="">
+        </div>
+        <ul class="right">
+            <li>
+                <a href="#">水果4</a>
+            </li>
+            <li>
+                <a href="#">水果5</a>
+            </li>
+            <li>
+                <a href="#">水果6</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        window.onload = function () {
+            var lis = document.getElementsByTagName('li');
+            var imgs = document.getElementsByTagName('img');
+            var loop = 0;
+            setInterval(function () {
+                loop++;
+                loop %= imgs.length;
+                for (let i = 0; i < imgs.length; i++) {
+                    imgs[i].style.display = 'none';
+                    lis[i].className = '';
+                };
+                lis[loop].className = 'current';
+                imgs[loop].style.display = 'block';
+            }, 1000);
+        }; 
+    </script>
+</body>
+
+</html>

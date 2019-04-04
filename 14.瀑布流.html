@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: none;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        hmtl,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #main {
+            position: relative;
+        }
+
+        .box {
+            float: left;
+            padding: 15px 0 0 15px;
+        }
+
+        .pic {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .pic img {
+            width: 150px;
+        }
+
+        /* #box {
+            width: 800px;
+            height: 4500px;
+            border: 1px solid #ddd;
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div class="box">
+            <div class="pic">
+                <img src="images/女装/01.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/女装/02.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/柠檬.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/拼盘.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/女装/05.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/草莓.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/葡萄.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/女装/08.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/西瓜.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/女装/10.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/西瓜.jpg" alt="">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/女装/12.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            waterFull('main', 'box');
+
+            var timer1 = null;
+            window.onscroll = function () {
+                clearTimeout(timer1);
+                timer1 = setTimeout(function () {
+                    if (checkWillLoadImage()) {
+                        var dataArr = [
+                            { "src": "images/女装/01.jpg" },
+                            { "src": "images/女装/02.jpg" },
+                            { "src": "images/柠檬.jpg" },
+                            { "src": "images/女装/04.jpg" },
+                            { "src": "images/西瓜.jpg" },
+                            { "src": "images/女装/09.jpg" },
+                            { "src": "images/女装/10.jpg" },
+                            { "src": "images/草莓.jpg" },
+                            { "src": "images/女装/12.jpg" }
+                        ];
+
+                        for (let i = 0; i < dataArr.length; i++) {
+                            var newBox = document.createElement('div');
+                            newBox.className = 'box';
+                            $('main').appendChild(newBox);
+
+                            var newPic = document.createElement('div');
+                            newPic.className = 'pic';
+                            newBox.appendChild(newPic);
+
+                            var newImg = document.createElement('img');
+                            newImg.src = dataArr[i].src;
+                            newPic.appendChild(newImg);
+                        };
+
+                        waterFull('main', 'box');
+                    };
+                }, 200);
+            };
+
+            //节流，避免一拉动就马上改变内容
+            var timer = null;
+            window.onresize = function () {
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    waterFull('main', 'box');
+                }, 200);
+            };
+        };
+
+        function waterFull(parent, child) {
+            var allBox = $(parent).getElementsByClassName(child);
+            var boxWidth = allBox[0].offsetWidth;
+            var screenW = document.documentElement.clientWidth;
+            var clos = parseInt(screenW / boxWidth);
+            $(parent).style.width = clos * boxWidth + 'px';
+            $(parent).style.background = "red";
+            $(parent).style.margin = "0 auto";
+
+            var heightArr = [], boxHeight, minBoxHeight, minBoxIndex = 0;
+            for (let i = 0; i < allBox.length; i++) {
+                boxHeight = allBox[i].offsetHeight;
+                if (i < clos) {
+                    heightArr.push(boxHeight);
+                    allBox[i].style = '';   //避免窗口大小发生变化时第一行的style混乱
+                } else {
+                    minBoxHeight = Math.min.apply(this, heightArr);
+                    var minBoxIndex = getMinBoxIndex(heightArr, minBoxHeight);
+                    allBox[i].style.position = "absolute";
+                    allBox[i].style.left = minBoxIndex * boxWidth + 'px';
+                    allBox[i].style.top = minBoxHeight + 'px';
+                    heightArr[minBoxIndex] += boxHeight;
+                };
+            };
+
+        };
+
+        function $(params) {
+            return typeof params === "string" ? document.getElementById(params) : null;
+        };
+
+        function getMinBoxIndex(arr, value) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === value) {
+                    return i;
+                }
+            };
+        };
+
+        function checkWillLoadImage() {
+            var allBox = document.getElementsByClassName('box');
+            var lastBox = allBox[allBox.length - 1];
+            var lastBoxDis = lastBox.offsetTop + lastBox.offsetHeight * 0.5;
+            var screenW = document.body.clientHeight || document.documentElement.clientHeight;
+            var scrollTop = scroller().top;
+            return lastBoxDis <= screenW + scrollTop;
+        }
+
+        function scroller() {
+            if (window.pageXOffset !== null) {
+                return {
+                    top: window.pageYOffset,
+                    left: window.pageXOffset
+                };
+            } else if (document.compatMode === 'CSS1Compat') {	//判断是不是W3c标准的浏览器
+                return {
+                    top: document.documentElement.scrollTop,
+                    left: document.documentElement.scrollWidth
+                };
+            };
+            return {
+                top: document.body.scrollTop,
+                left: document.body.scrollWidth
+            };
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>tab选项卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 800px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+        }
+
+        #myTextArea {
+            width: 80%;
+            height: 120px;
+            margin-top: 20px;
+        }
+
+        .box-top {
+            margin-bottom: 20px;
+
+        }
+
+        #ul {
+            margin: 0 80px;
+        }
+
+        #ul>li {
+            border-bottom: 1px dashed #ccc;
+            color: red;
+            line-height: 44px;
+        }
+
+        #ul>li a {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="box-top">
+            <label>发表评论：</label>
+            <textarea id="myTextArea" cols="60" rows="10"></textarea>
+            <button id="btn">发表</button>
+        </div>
+        <ul id="ul">
+        </ul>
+    </div>
+    <script>
+        window.onload = function () {
+            $('btn').onclick = function () {
+                var content = $('myTextArea').value;
+                if (content.length === 0) {
+                    alert('请输入评论的内容');
+                    return;
+                }
+                var li = document.createElement('li');
+                li.innerHTML = content + "<a href='javascript:;'>删除</a>";
+                $('ul').insertBefore(li, $('ul').children[0]);
+                $('myTextArea').value = "";
+                var as = $('ul').getElementsByTagName('a');
+                for (var i = 0; i < as.length; i++) {
+                    as[i].onclick = function () {
+                        this.parentNode.remove();
+                    };
+                }
+            };
+        };
+        function $(id) {
+            return typeof id === "string" ? document.getElementById(id) : null;
+        }
+    </script>
+</body>
+
+</html>

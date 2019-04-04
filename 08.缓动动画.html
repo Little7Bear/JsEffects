@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            color: #333;
+        }
+
+        #dd {
+            width: 50px;
+            height: 50px;
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">开始动画</button>
+    <div id="dd"></div>
+    <script>
+        function slowAnimation(triggerId, selfId, begin, target, slowCoefficient, time) {
+            var btn = document.getElementById(triggerId);
+            var dd = document.getElementById(selfId);
+            var timer = null;
+            btn.onclick = function () {
+                clearInterval(timer);
+                timer = setInterval(() => {
+                    begin += (target - begin) * 0.2;//起始值+=(结束值-起始值)*缓动系数
+                    if (begin >= target) {
+                        begin = target;
+                        clearInterval(timer);
+                    };
+                    dd.style.marginLeft = begin + 'px';
+                }, time);
+            };
+        }
+        window.onload = function () {
+            slowAnimation('btn', 'dd', 0, 800, 0.2, 50);
+        }; 
+    </script>
+</body>
+
+</html>

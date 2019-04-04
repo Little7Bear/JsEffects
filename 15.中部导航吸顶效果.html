@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: none;
+        }
+
+        .head {
+            height: 100px;
+            background-color: red;
+        }
+
+        .nav {
+            height: 50px;
+            background-color: darkorange;
+
+        }
+
+        .body {
+            height: 2000px;
+            width: 1000px;
+            margin: 0 auto;
+            background-color: darkcyan;
+        }
+
+        .fixed {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="head">
+        <div class="head"></div>
+    </header>
+    <nav id="nav">
+        <div class="nav"></div>
+    </nav>
+    <section>
+        <div class="body"></div>
+    </section>
+    <script>
+        window.onload = function () {
+            var head = document.getElementById('head');
+            var nav = document.getElementById('nav');
+            window.onscroll = function () {
+                if (scroller().top > head.offsetHeight) {
+                    nav.className = "fixed";
+                } else {
+                    nav.className = "";
+                }
+            };
+        };
+        function scroller() {
+            if (window.pageXOffset !== null) {
+                return {
+                    top: window.pageYOffset,
+                    left: window.pageXOffset
+                };
+            } else if (document.compatMode === 'CSS1Compat') {	//判断是不是W3c标准的浏览器
+                return {
+                    top: document.documentElement.scrollTop,
+                    left: document.documentElement.scrollWidth
+                };
+            };
+            return {
+                top: document.body.scrollTop,
+                left: document.body.scrollWidth
+            };
+        };
+    </script>
+</body>
+
+</html>

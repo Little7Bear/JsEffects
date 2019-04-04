@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <script src="javascript/underscore.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: none;
+        }
+
+        #progress {
+            width: 1000px;
+            height: 35px;
+            line-height: 35px;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        #progress-bar {
+            width: 900px;
+            height: 100%;
+            background-color: #ccc;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        #progress-value {
+            position: absolute;
+            right: 30px;
+            top: 0;
+        }
+
+        #progress-bar-fg {
+            width: 0;
+            height: 100%;
+            background-color: orangered;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        span {
+            width: 25px;
+            height: 49px;
+            background-color: orangered;
+            position: absolute;
+            left: 0;
+            top: -7px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="progress">
+        <div id="progress-bar">
+            <div id="progress-bar-fg"></div>
+            <span></span>
+        </div>
+        <div id="progress-value">0%</div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var progress = document.getElementById('progress');
+            var progressBar = progress.children[0];
+            var progressBarFg = progressBar.children[0];
+            var mask = progressBar.children[1];
+            var progressValue = progress.children[1];
+
+            mask.onmousedown = function (event) {
+                var e = event || window.event;
+                var maskOffsetLeft = e.clientX - mask.offsetLeft;
+
+                document.onmousemove = function (event) {
+                    var e = event || window.event;
+                    var x = e.clientX - maskOffsetLeft;
+                    var maxWidth = progressBar.offsetWidth - mask.offsetWidth;
+                    x = x < 0 ? 0 : x;
+                    x = x > maxWidth ? maxWidth : x;
+                    mask.style.left = x + 'px';
+                    progressBarFg.style.width = x + 'px';
+                    progressValue.innerText = parseInt(x / maxWidth * 100) + '%';
+                    return false;
+                };
+
+                document.onmouseup = function (event) {
+                    this.onmousemove = null;
+                };
+            };
+        }; 
+    </script>
+</body>
+
+</html>

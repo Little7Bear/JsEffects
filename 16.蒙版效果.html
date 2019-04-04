@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #panel {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.4;
+            filter: alpha(opacity=40);
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+
+        #login {
+            width: 500px;
+            height: 300px;
+            background-color: greenyellow;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -250px;
+            margin-top: -150px;
+            display: none;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">立即登录</button>
+    <div id="panel"></div>
+    <div id="login"></div>
+
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            var panel = document.getElementById('panel');
+            var login = document.getElementById('login');
+            btn.onclick = function (event) {
+                if (event && event.stopPropagation) {
+                    event.stopPropagation();
+                } else {
+                    event.cancelBubble = true;
+                };
+                panel.style.display = 'block';
+                login.style.display = 'block';
+                document.body.style.overflow = "hidden";
+            };
+
+            document.onclick = function (event) {
+                var e = event || window.event;
+                var targetId = e.target ? e.target.id : e.srcElement.id;
+                if (targetId !== "login") {
+                    panel.style.display = 'none';
+                    login.style.display = 'none';
+                }
+            };
+
+        };
+
+        function scroller() {
+            if (window.pageXOffset !== null) {
+                return {
+                    top: window.pageYOffset,
+                    left: window.pageXOffset
+                };
+            } else if (document.compatMode === 'CSS1Compat') {	//判断是不是W3c标准的浏览器
+                return {
+                    top: document.documentElement.scrollTop,
+                    left: document.documentElement.scrollWidth
+                };
+            };
+            return {
+                top: document.body.scrollTop,
+                left: document.body.scrollWidth
+            };
+        };
+    </script>
+
+
+</body>
+
+</html>
